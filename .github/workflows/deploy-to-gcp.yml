@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GKE_CLUSTER: timeoff-mgmt-cluster
   GKE_REGION: us-central1
   GKE_ZONE: us-central1-a
@@ -29,8 +29,8 @@ jobs:
       # Setup gcloud CLI
       - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
         with:
-          service_account_key: ${{ secrets.GKE_SA_KEY }}
-          project_id: ${{ secrets.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GCP_DEPLOY_SA }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Setup Terraform
           uses: hashicorp/setup-terraform@v1
