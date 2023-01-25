@@ -1,3 +1,10 @@
+terraform {
+  backend "gcs" {
+    bucket  = "timeoff-mgmt-tf-state-bucket"
+    prefix  = "dev/terraform.tfstate"
+  }
+}
+
 # Create VPC
 resource "google_compute_network" "vpc" {
   name                    = "${var.project_id}-vpc"
@@ -31,7 +38,7 @@ resource "google_container_node_pool" "pool" {
 
   node_config {
     preemptible  = true # Since this is a dev env, we are using preemp machines to reduce costs.
-    machine_type = "e2-micro"
+    machine_type = var.machine_type
 
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     # service_account = google_service_account.default.email
